@@ -1,17 +1,15 @@
 'use strict';
 import maskPhone from './maskPhone';
 const formSubmisson = () => {
-        const form1 = document.querySelector('.main-form'),
-            form2 = document.querySelector('.capture-form'),
-            form3 = document.querySelector('.popup-call .capture-form'),
-            phone = document.getElementsByName('user_phone'),
+        const form = document.querySelectorAll('form'),
+        
+        phone = document.getElementsByName('user_phone'),
             name = document.getElementsByName('user_name');
         const errorMessage = 'Что-то пошло не так',
             loadMessage = 'Загрузка...',
             successMessage = 'Спасибо! Мы скоро с вами свяжемся.',
             statusMessage = document.createElement('div');
             statusMessage.style.cssText = 'font-size: 2rem; color: black';
-
         const validator = () => {
             phone.forEach((item) => {
                 maskPhone(item);
@@ -22,6 +20,7 @@ const formSubmisson = () => {
                 });
             });
         };
+        
         validator();
 
         const clearInput = (target) => {
@@ -30,16 +29,21 @@ const formSubmisson = () => {
                 item.value = '';
             });
         };
+        
         const forms = [];
-        forms.push(form1, form2, form3);
+        form.forEach((item) => {
+            if(item.classList.contains('capture-form') || item.classList.contains('main-form') ){
+            forms.push(item);
+            }
+        });
         forms.forEach((item) => {
             item.addEventListener('submit', (e) => {
+                e.preventDefault();
                 const deleteStatus = (status) => {
                     setTimeout(() => {
                         status.textContent = '';
                     }, 5000);
                 };
-                e.preventDefault();
                 const target = e.target;
                 item.appendChild(statusMessage);
                 statusMessage.textContent = loadMessage;
@@ -62,6 +66,7 @@ const formSubmisson = () => {
                     });
                     clearInput(item);
                     deleteStatus(statusMessage);
+                
             });
 
         });
@@ -76,6 +81,6 @@ const formSubmisson = () => {
             });
         };
 
-    alert(1)  
+        
 };
 export default formSubmisson;
