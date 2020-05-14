@@ -76,6 +76,5 @@ const formSubmisson = () => {
             });
         };
 
-    alert(1)  
 };
 export default formSubmisson;
