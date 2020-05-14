@@ -1,27 +1,32 @@
 'use strict';
-function modalWindow() {
-    const btn = document.querySelector('.call-btn'),
-        popup = document.querySelector('.popup-call'),
-        popupContent = document.querySelector('.popup-content');
+const  modalWindow = (selector, popup) =>  {
 
-    
-        btn.addEventListener('click', (e) => {
+    const btn = document.querySelectorAll(selector),
+        popupWindow = document.querySelector(popup);
+        btn.forEach((item) => {
+        item.addEventListener('click', (e) => {
             e.preventDefault();
-            popup.style.display = 'block';
+            popupWindow.style.display = 'block';
             document.body.classList.add('modal-open');
         });
-        popup.addEventListener('click', event => {
+    });
+        popupWindow.addEventListener('click', event => {
             let target = event.target;
             if (target.classList.contains('popup-close')) {
-                popup.style.display = 'none';
+                popupWindow.style.display = 'none';
+                document.body.classList.remove('modal-open');
+
     
             } else {
                 target = target.closest('.popup-content');
                 if (!target) {
-                    popup.style.display = 'none';
+                    popupWindow.style.display = 'none';
+                    document.body.classList.remove('modal-open');
+
                 }
             }
+    
 }
 );
-}
+};
 export default modalWindow;

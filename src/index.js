@@ -2,5 +2,6 @@
 
 import modalWindow from './modules/modalWindowOne';
 //modalWindowOne
-modalWindow();
+modalWindow('header .call-btn', '.popup');
+// modalWindow('body/call-btn');
 
