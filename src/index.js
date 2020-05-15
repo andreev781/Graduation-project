@@ -16,3 +16,7 @@ modalWindow('.discount-btn', '.popup-discount');
 
 //acordion
 accordion();
+
+//discount
+
+modalWindow('.check-btn', '.popup-check');
