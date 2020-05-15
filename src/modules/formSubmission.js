@@ -5,6 +5,7 @@ const formSubmisson = () => {
         
         phone = document.getElementsByName('user_phone'),
             name = document.getElementsByName('user_name');
+            
         const errorMessage = 'Что-то пошло не так',
             loadMessage = 'Загрузка...',
             successMessage = 'Спасибо! Мы скоро с вами свяжемся.',
