@@ -5,7 +5,6 @@ const btnMore = () => {
         btn.addEventListener('click', () => {
         btn.style.display = 'none';
         blocks.forEach((item) => {
-            console.log(item);
             item.style.setProperty('display', 'block', 'important');
         });
     });
