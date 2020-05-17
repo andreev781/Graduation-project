@@ -83,7 +83,7 @@ const calcAccordion = () => {
                     secondBlock.style.display = 'block';
                     objSum.chamber = 'double';
                     chamber = 15000;
-                    testRing(secondRing.value);
+                    ringFunc(secondRing.value);
                     diameter2();
                 } else {
                     objSum.sum -=  diameterInfo2;
@@ -93,7 +93,7 @@ const calcAccordion = () => {
                     chamber = 10000;
                 }
                 diameter();
-                testRing(firstRing.value);
+                ringFunc(firstRing.value);
                 funcBottom();
                 result.value = objSum.sum;
             }, 0);
@@ -141,7 +141,7 @@ const calcAccordion = () => {
             } else {
                 objSum.ring1 = 1;
             }
-            testRing(firstRing.value);
+            ringFunc(firstRing.value);
         });
         secondRing.addEventListener('change', () => {
             if (secondRing.value == 2) {
@@ -151,12 +151,12 @@ const calcAccordion = () => {
             } else {
                 objSum.ring2 = 1;
             }
-            testRing(secondRing.value);
+            ringFunc(secondRing.value);
         });
         bottom.addEventListener('click', () => {
             funcBottom();
         });
-        const testRing = value => {
+        const ringFunc = value => {
             if (value == 3) {
                 objSum.sum -= ring1;
                 ring1 = (chamber / 100) * 50;
@@ -174,6 +174,7 @@ const calcAccordion = () => {
         const funcBottom = () => {
 
             if (bottom.checked) {
+                objSum.bottom = true;
                 if (!onoffswitchCheckbox.checked) {
                     objSum.sum -= bottomInfo;
                     bottomInfo = 2000;
@@ -184,6 +185,7 @@ const calcAccordion = () => {
                     objSum.sum += bottomInfo;
                 }
             } else {
+                objSum.bottom = false;
                 objSum.sum -= bottomInfo;
                 bottomInfo = 0;
             }
@@ -202,19 +204,49 @@ const calcAccordion = () => {
     accordion();
     const calcObj = calc();
     const sendObj = () => {
+
         const errorMessage = 'Что-то пошло не так',
             loadMessage = 'Загрузка...',
             successMessage = 'Спасибо! Мы скоро с вами свяжемся.',
             statusMessage = document.createElement('div'),
-            buttons = document.querySelectorAll('.capture-form');
-        statusMessage.style.cssText = 'font-size: 2rem; color: black';
-
+            buttons = document.querySelectorAll('.capture-form'),
+            result = document.querySelector('#calc-result'),
+            checkBox = document.querySelectorAll('.onoffswitch-checkbox'),
+            secondBlock = document.querySelector('.second-block'),
+            distance = document.querySelector('#distance'),
+            formControl = document.querySelectorAll('.form-control');
+            statusMessage.style.cssText = 'font-size: 2rem; color: black';
         const clearInput = target => {
             const input = target.querySelectorAll('input');
             input.forEach(item => {
                 item.value = '';
             });
         };
+        const clearCheckbox = () => {
+            checkBox.forEach((item) => {
+                item.checked = true;
+            });
+            secondBlock.style.display = 'none';
+        };
+
+        const clearFormControl = () => {
+            formControl.forEach((item) => {
+                if(item.matches('#first-ring') || item.matches('#second-ring')){
+                    item.value = 1;
+                }else{
+                    item.value = 1.4;
+                }
+            });
+        };
+
+        const clearInputDistance = () => {
+            distance.value = '';
+        };
+
+        const clearResult = () => {
+            result.value = '';
+        };
+
 
         const deleteStatus = status => {
             setTimeout(() => {
@@ -224,11 +256,13 @@ const calcAccordion = () => {
 
 
 
+
+
         buttons.forEach(item => {
             if (item.closest('.popup-discount')) {
                 item.addEventListener('submit', e => {
                     e.preventDefault();
-
+                    
                     item.appendChild(statusMessage);
                     statusMessage.textContent = loadMessage;
                     const formData = new FormData(item);
@@ -239,15 +273,25 @@ const calcAccordion = () => {
                     postData(calcObj)
                         .then(response => {
                             if (response.status !== 200) {
+
                                 throw new Error('status network is not 200');
                             }
+                                clearInput(item);
+                                clearCheckbox();
+                                clearFormControl();
+                                clearInputDistance();
+                                clearResult();
+                                deleteStatus(statusMessage);
+                                calc();
+                                accordion();
                             statusMessage.textContent = successMessage;
                         })
                         .catch(() => {
                             statusMessage.textContent = errorMessage;
                         });
-                    clearInput(item);
-                    deleteStatus(statusMessage);
+
+                    
+
 
                 });
             }
