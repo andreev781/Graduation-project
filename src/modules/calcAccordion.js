@@ -276,12 +276,10 @@ const calcAccordion = () => {
 
                                 throw new Error('status network is not 200');
                             }
-                                clearInput(item);
                                 clearCheckbox();
                                 clearFormControl();
                                 clearInputDistance();
                                 clearResult();
-                                deleteStatus(statusMessage);
                                 calc();
                                 accordion();
                             statusMessage.textContent = successMessage;
@@ -289,6 +287,9 @@ const calcAccordion = () => {
                         .catch(() => {
                             statusMessage.textContent = errorMessage;
                         });
+                        clearInput(item);
+                        deleteStatus(statusMessage);
+
 
                     
 

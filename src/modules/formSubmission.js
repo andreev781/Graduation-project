@@ -33,14 +33,13 @@ const formSubmisson = () => {
         
         const forms = [];
         form.forEach((item) => {
-            if(item.classList.contains('capture-form') || item.classList.contains('main-form') ){
+            if(item.classList.contains('capture-form') || item.classList.contains('main-form')){
             forms.push(item);
             }
         });
         forms.forEach((item) => {
-            if(!item.closest('.popup-discount')){
-
-            item.addEventListener('submit', (e) => {
+            if(!item.closest('.popup-discount') && !item.closest('.popup-consultation')){
+                item.addEventListener('submit', (e) => {
                 e.preventDefault();
                 const deleteStatus = (status) => {
                     setTimeout(() => {

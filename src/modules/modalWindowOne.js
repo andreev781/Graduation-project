@@ -4,7 +4,7 @@ const  modalWindow = (selector, popup) =>  {
     const btn = document.querySelectorAll(selector),
         popupWindow = document.querySelector(popup);
         btn.forEach((item) => {
-        item.addEventListener('click', (e) => {
+            item.addEventListener('click', (e) => {
             e.preventDefault();
             popupWindow.style.display = 'block';
             document.body.classList.add('modal-open');
