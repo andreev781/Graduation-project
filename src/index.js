@@ -21,7 +21,7 @@ accordion();
 
 //discount
 
-modalWindow('.gaugint .check-btn', '.popup-check');
+modalWindow('.gauging .check-btn', '.popup-check');
 
 //calcAccordion
 
