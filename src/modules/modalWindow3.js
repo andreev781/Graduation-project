@@ -11,6 +11,10 @@ const modalWindow3 = () => {
         statusMessage = document.createElement('div');
     statusMessage.style.cssText = 'font-size: 2rem; color: black';
 
+    quest.addEventListener('input', function(){
+        this.value = this.value.replace(/[^а-яё\s\.\,\-\"\'\d]/gi, '');
+    });
+
     const body = {};
 
     const clearInput = target => {
