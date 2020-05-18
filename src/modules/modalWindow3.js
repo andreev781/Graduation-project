@@ -9,18 +9,18 @@ const modalWindow3 = () => {
         loadMessage = 'Загрузка...',
         successMessage = 'Спасибо! Мы скоро с вами свяжемся.',
         statusMessage = document.createElement('div');
-        statusMessage.style.cssText = 'font-size: 2rem; color: black';
+    statusMessage.style.cssText = 'font-size: 2rem; color: black';
 
     const body = {};
 
-    const clearInput = (target) => {
+    const clearInput = target => {
         const input = target.querySelectorAll('input');
         input.forEach(item => {
             item.value = '';
         });
     };
 
-    const deleteStatus = (status) => {
+    const deleteStatus = status => {
         setTimeout(() => {
             status.textContent = '';
         }, 5000);
@@ -39,7 +39,7 @@ const modalWindow3 = () => {
                 formData.forEach((val, key) => {
                     body[key] = val;
                 });
-                
+
 
                 postData(body)
                     .then(response => {
@@ -52,10 +52,11 @@ const modalWindow3 = () => {
                     .catch(() => {
                         statusMessage.textContent = errorMessage;
                     });
-                    clearInput(item);
-                    deleteStatus(statusMessage);
+                clearInput(item);
+                deleteStatus(statusMessage);
+                quest.value = '';
 
-                
+
 
 
             });
